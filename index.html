@@ -10,7 +10,6 @@
         body { font-family: 'Inter', sans-serif; color: #0f172a; background-color: #ffffff; scroll-behavior: smooth; }
         .font-serif { font-family: 'Playfair Display', serif; }
         
-        /* Dashboard Visual Styling */
         .macbook-frame {
             background: #1e293b;
             border-radius: 24px;
@@ -42,6 +41,11 @@
             transform-origin: bottom; transform: rotate(55deg);
         }
         .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); }
+        
+        /* Correlation Table Styling */
+        .corr-positive { color: #10b981; background: #ecfdf5; font-weight: 600; }
+        .corr-negative { color: #ef4444; background: #fef2f2; font-weight: 600; }
+        .corr-neutral { color: #64748b; background: #f8fafc; }
     </style>
 </head>
 <body class="antialiased">
@@ -84,7 +88,6 @@
                             <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Live Market</span>
                             <span class="text-xs font-bold text-blue-600">Real-time Data</span>
                         </div>
-                        
                         <div class="flex-grow w-full bg-slate-50 rounded-xl overflow-hidden border border-slate-100">
                             <div class="tradingview-widget-container h-full w-full">
                                 <div class="tradingview-widget-container__widget h-full w-full"></div>
@@ -104,13 +107,11 @@
                                 </script>
                             </div>
                         </div>
-
                         <div class="p-4 bg-green-50 rounded-xl border border-green-100 mt-4">
                             <div class="text-[9px] font-bold text-green-700 uppercase mb-1">TMD Sinyal Taktis</div>
                             <div class="text-lg font-bold text-green-900 uppercase">Posisi BELI Kuat</div>
                         </div>
                     </div>
-                    
                     <div class="screen-right">
                         <div class="mb-8 text-center">
                             <div class="gauge-container mb-3"><div class="gauge-needle"></div></div>
@@ -120,15 +121,11 @@
                         <div class="space-y-6">
                             <div class="border-b border-slate-800 pb-4">
                                 <div class="text-[9px] uppercase text-slate-500 mb-2 font-bold">Macro Flow</div>
-                                <div class="text-[10px] text-slate-300 leading-relaxed">
-                                    Dolar melemah (DXY ↓) memicu aliran modal ke aset aman. Target XAU berada di level $2,350.
-                                </div>
+                                <div class="text-[10px] text-slate-300 leading-relaxed">Dolar melemah (DXY ↓) memicu aliran modal ke aset aman.</div>
                             </div>
                             <div class="border-b border-slate-800 pb-4">
                                 <div class="text-[9px] uppercase text-slate-500 mb-2 font-bold">Historical Playback</div>
-                                <div class="text-[10px] text-slate-300 italic leading-relaxed">
-                                    Anomali rilis data NFP serupa terjadi pada 2024. Akurasi setup ini mencapai 74%.
-                                </div>
+                                <div class="text-[10px] text-slate-300 italic">Pola NFP 2024 terdeteksi.</div>
                             </div>
                         </div>
                     </div>
@@ -137,11 +134,55 @@
         </div>
     </section>
 
-    <section class="py-40 bg-slate-50 border-y border-slate-100 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-5xl font-light leading-relaxed text-slate-400">
-                Terminal trading saat ini <span class="text-gray-900 font-normal">terlalu bising.</span> Berita yang tumpang tindih. Data yang memicu FOMO. Anda butuh <span class="italic font-serif text-gray-900">kejernihan</span>, bukan sekadar kecepatan.
-            </h2>
+    <section class="py-32 bg-slate-50 border-y border-slate-100 px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center text-left">
+            <div>
+                <h2 class="text-3xl md:text-5xl font-light leading-relaxed text-slate-400 mb-8">
+                    Terminal trading saat ini <span class="text-gray-900 font-normal">terlalu bising.</span> Data yang memicu FOMO. Anda butuh <span class="italic font-serif text-gray-900">kejernihan.</span>
+                </h2>
+                <p class="text-slate-500 font-light mb-8 italic">"Visualizing the invisible threads between global assets."</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+                <h3 class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-6">Market Interdependence Matrix</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-center border-collapse">
+                        <thead>
+                            <tr class="text-slate-400">
+                                <th class="p-2 text-left">Assets</th>
+                                <th class="p-2">Gold</th>
+                                <th class="p-2">IHSG</th>
+                                <th class="p-2">USD/IDR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-slate-50">
+                                <td class="p-3 text-left font-bold">Gold</td>
+                                <td class="p-3 bg-slate-50">1.00</td>
+                                <td class="p-3 corr-neutral">0.12</td>
+                                <td class="p-3 corr-negative">-0.84</td>
+                            </tr>
+                            <tr class="border-t border-slate-50">
+                                <td class="p-3 text-left font-bold">IHSG</td>
+                                <td class="p-3 corr-neutral">0.12</td>
+                                <td class="p-3 bg-slate-50">1.00</td>
+                                <td class="p-3 corr-negative">-0.45</td>
+                            </tr>
+                            <tr class="border-t border-slate-50">
+                                <td class="p-3 text-left font-bold">USD/IDR</td>
+                                <td class="p-3 corr-negative">-0.84</td>
+                                <td class="p-3 corr-negative">-0.45</td>
+                                <td class="p-3 bg-slate-50">1.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-6 flex items-center justify-between text-[9px] text-slate-400 font-medium">
+                    <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-green-400 mr-1"></span> Positive Corr</span>
+                    <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-red-400 mr-1"></span> Negative Corr</span>
+                    <span>Updated 5m ago</span>
+                </div>
+            </div>
         </div>
     </section>
 
