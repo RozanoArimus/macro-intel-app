@@ -7,11 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #111827; }
+        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #111827; scroll-behavior: smooth; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        .hero-pattern { background-image: radial-gradient(#E5E7EB 1px, transparent 1px); background-size: 24px 24px; }
-        .chart-card { background: white; border-radius: 16px; border: 1px solid #F3F4F6; transition: all 0.3s ease; }
-        .chart-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -10px rgba(0,0,0,0.05); }
+        .hero-pattern { background-image: radial-gradient(#E5E7EB 1px, transparent 1px); background-size: 32px 32px; }
+        .iphone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; border: 8px solid #1f1f1f; position: relative; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.15); }
+        .iphone-screen { width: 100%; height: 100%; background: #F9FAFB; border-radius: 32px; overflow: hidden; }
+        .glass-card { background: white; border: 1px solid #F3F4F6; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
     </style>
 </head>
 <body class="antialiased selection:bg-gray-900 selection:text-white">
@@ -19,316 +20,130 @@
     <nav class="border-b border-gray-100 bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-baseline space-x-2">
-                <span class="font-serif text-2xl font-bold tracking-tight text-gray-900">TMD</span>
+                <span class="font-serif text-2xl font-bold tracking-tight">TMD</span>
                 <span class="text-gray-300 font-light">|</span>
-                <span class="font-serif text-lg font-medium text-gray-800">The Macro Desk</span>
-                <span class="text-[10px] uppercase tracking-widest text-gray-400 font-sans ml-1 border border-gray-100 px-2 py-0.5 rounded-full hidden sm:inline-block">by Nexora</span>
+                <span class="text-xs uppercase tracking-widest text-gray-500 font-medium">By Nexora</span>
             </div>
-            <button class="text-sm font-medium text-gray-600 hover:text-gray-900 transition border border-gray-200 px-4 py-2 rounded-full hover:border-gray-900 shadow-sm">
-                Join Waitlist B2B
+            <button class="text-sm font-semibold text-gray-900 border border-gray-900 px-5 py-2 rounded-full hover:bg-gray-900 hover:text-white transition">
+                Join Waitlist
             </button>
         </div>
     </nav>
 
-    <section class="hero-pattern pt-24 pb-16 px-6 text-center border-b border-gray-100">
-        <div class="max-w-4xl mx-auto">
-            <div class="inline-block px-3 py-1 mb-6 border border-gray-200 rounded-full text-xs font-medium uppercase tracking-widest text-gray-500 bg-white">
-                Platform Analitik Generasi Baru
-            </div>
-            <h1 class="font-serif text-5xl md:text-6xl font-semibold leading-tight mb-6 text-gray-900">
-                Kejernihan Makro.
-            </h1>
-            <p class="text-lg text-gray-600 mb-12 font-light leading-relaxed max-w-2xl mx-auto">
-                TMD menyederhanakan data global menjadi keputusan trading yang presisi dalam antarmuka kelas eksekutif. Tidak ada lagi kebisingan pasar.
-            </p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                <div class="chart-card p-4 h-64 relative text-left">
-                    <div class="mb-2">
-                        <div class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Commodity</div>
-                        <div class="font-serif text-sm font-bold text-gray-900">Gold (XAU/USD)</div>
-                    </div>
-                    <div class="tradingview-widget-container h-44">
-                        <div class="tradingview-widget-container__widget h-full"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                        {
-                          "symbol": "OANDA:XAUUSD",
-                          "width": "100%",
-                          "height": "100%",
-                          "locale": "id",
-                          "dateRange": "1M",
-                          "colorTheme": "light",
-                          "isTransparent": true,
-                          "autosize": true,
-                          "largeChartUrl": ""
-                        }
-                        </script>
-                    </div>
+    <section class="hero-pattern pt-20 pb-32 px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="text-left">
+                <div class="inline-block px-3 py-1 mb-6 border border-gray-200 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 bg-white">
+                    Platform Analitik Generasi Baru
                 </div>
-
-                <div class="chart-card p-4 h-64 text-left">
-                    <div class="mb-2">
-                        <div class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Index</div>
-                        <div class="font-serif text-sm font-bold text-gray-900">IHSG</div>
-                    </div>
-                    <div class="tradingview-widget-container h-44">
-                        <div class="tradingview-widget-container__widget h-full"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                        {
-                          "symbol": "IDX:COMPOSITE",
-                          "width": "100%",
-                          "height": "100%",
-                          "locale": "id",
-                          "dateRange": "1M",
-                          "colorTheme": "light",
-                          "isTransparent": true,
-                          "autosize": true,
-                          "largeChartUrl": ""
-                        }
-                        </script>
-                    </div>
-                </div>
-
-                <div class="chart-card p-4 h-64 text-left">
-                    <div class="mb-2">
-                        <div class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Forex</div>
-                        <div class="font-serif text-sm font-bold text-gray-900">USD / IDR</div>
-                    </div>
-                    <div class="tradingview-widget-container h-44">
-                        <div class="tradingview-widget-container__widget h-full"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                        {
-                          "symbol": "FX_IDC:USDIDR",
-                          "width": "100%",
-                          "height": "100%",
-                          "locale": "id",
-                          "dateRange": "1M",
-                          "colorTheme": "light",
-                          "isTransparent": true,
-                          "autosize": true,
-                          "largeChartUrl": ""
-                        }
-                        </script>
-                    </div>
+                <h1 class="font-serif text-5xl md:text-7xl font-semibold leading-[1.1] mb-8 text-gray-900">
+                    Kejernihan Makro di Tengah Kebisingan Pasar.
+                </h1>
+                <p class="text-xl text-gray-500 mb-10 font-light leading-relaxed max-w-lg">
+                    Platform analitik berbasis AI yang merangkum sentimen global dan data makro menjadi keputusan trading yang presisi.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="px-8 py-4 bg-gray-900 text-white rounded-lg text-sm font-semibold tracking-wide hover:shadow-xl transition-all">
+                        Bergabung di Waitlist
+                    </button>
+                    <button class="px-8 py-4 bg-white text-gray-900 border border-gray-200 rounded-lg text-sm font-semibold tracking-wide hover:bg-gray-50 transition">
+                        Coba Versi Beta
+                    </button>
                 </div>
             </div>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <button class="w-full sm:w-auto px-8 py-3 bg-gray-900 text-white rounded-lg text-sm font-semibold tracking-wide shadow-md hover:bg-gray-800 transition">
-                    Join Waitlist
-                </button>
-                <button class="w-full sm:w-auto px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-lg text-sm font-semibold tracking-wide hover:bg-gray-50 transition">
-                    Learn More
-                </button>
+            <div class="hidden md:flex justify-center">
+                <div class="iphone-mockup">
+                    <div class="iphone-screen p-4">
+                        <div class="w-12 h-1 bg-gray-200 mx-auto mb-6 rounded-full mt-2"></div>
+                        <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">XAU/USD</div>
+                        <div class="font-serif text-xl font-bold mb-4">$2,345.50</div>
+                        <div class="w-full h-32 bg-white border border-gray-100 rounded-xl mb-4"></div>
+                        <div class="p-3 bg-white border border-gray-100 rounded-xl">
+                            <div class="text-[8px] uppercase tracking-widest text-gray-400 mb-1">AI Sentiment</div>
+                            <div class="text-[10px] text-gray-700 leading-tight">Sentiment: 78% Bullish. Macro drivers are aligning with technical resistance.</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6 bg-gray-50">
+    <section class="py-40 px-6 bg-white text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-light leading-relaxed text-gray-400">
+                Terminal trading saat ini <span class="text-gray-900 font-normal">terlalu bising.</span> Berita yang tumpang tindih. Data yang memicu FOMO. Anda butuh <span class="italic font-serif text-gray-900">kejernihan</span>, bukan sekadar kecepatan.
+            </h2>
+        </div>
+    </section>
+
+    <section class="pb-32 px-6 bg-white">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="font-serif text-3xl font-semibold mb-4">Dirancang Untuk Akurasi, Bukan Distraksi.</h2>
-                <p class="text-gray-600 font-light">Tiga pilar utama kami mengubah data mentah menjadi keunggulan kompetitif Anda.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">Commodity</div>
+                    <div class="font-serif text-lg font-bold mb-4">Gold (XAU/USD)</div>
+                    <div class="h-48">
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        { "symbol": "OANDA:XAUUSD", "width": "100%", "height": "100%", "locale": "id", "dateRange": "1M", "colorTheme": "light", "isTransparent": true, "autosize": true }
+                        </script>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">Index</div>
+                    <div class="font-serif text-lg font-bold mb-4">IHSG</div>
+                    <div class="h-48">
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        { "symbol": "IDX:COMPOSITE", "width": "100%", "height": "100%", "locale": "id", "dateRange": "1M", "colorTheme": "light", "isTransparent": true, "autosize": true }
+                        </script>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">Forex</div>
+                    <div class="font-serif text-lg font-bold mb-4">USD / IDR</div>
+                    <div class="h-48">
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        { "symbol": "FX_IDC:USDIDR", "width": "100%", "height": "100%", "locale": "id", "dateRange": "1M", "colorTheme": "light", "isTransparent": true, "autosize": true }
+                        </script>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h3 class="font-serif text-xl font-semibold mb-3">AI Sentiment Meter</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed font-light">Sistem AI merangkum ribuan berita fundamental harian menjadi satu persentase probabilitas sentimen yang tegas dan jelas.</p>
+    <section class="py-32 px-6 bg-gray-50 border-t border-gray-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="space-y-4">
+                    <div class="w-10 h-10 bg-gray-900 text-white flex items-center justify-center rounded-lg font-bold">1</div>
+                    <h3 class="font-serif text-2xl font-bold">AI Sentiment Meter</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">Sistem AI kami merangkum ribuan berita fundamental harian menjadi skor persentase yang tegas, membantu Anda memahami psikologi pasar dalam satu lirikan.</p>
                 </div>
-
-                <div class="bg-white p-8 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
-                    </div>
-                    <h3 class="font-serif text-xl font-semibold mb-3">Korelasi Makro Kausalitas</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed font-light">Tidak sekadar menyajikan berita. Kami memetakan dampak langsung rilis data makro terhadap pergerakan instrumen spesifik.</p>
+                <div class="space-y-4">
+                    <div class="w-10 h-10 bg-gray-900 text-white flex items-center justify-center rounded-lg font-bold">2</div>
+                    <h3 class="font-serif text-2xl font-bold">Macro Causality</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">Memetakan korelasi langsung antara rilis data makro ekonomi global dengan pergerakan aset riil. Tidak ada lagi tebak-tebakan dampaknya.</p>
                 </div>
-
-                <div class="bg-white p-8 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="font-serif text-xl font-semibold mb-3">Kilas Balik Historis</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed font-light">Validasi keputusan trading Anda dengan melihat preseden historis pergerakan harga saat menghadapi kondisi makro serupa di masa lalu.</p>
+                <div class="space-y-4">
+                    <div class="w-10 h-10 bg-gray-900 text-white flex items-center justify-center rounded-lg font-bold">3</div>
+                    <h3 class="font-serif text-2xl font-bold">Historical Playback</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">Validasi keputusan Anda dengan fitur "Kilas Balik" untuk melihat secara akurat bagaimana pasar bereaksi terhadap pola data serupa di masa lalu.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-white border-t border-gray-50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-8">Dirancang Untuk Profesional</h3>
+            <p class="font-serif text-2xl md:text-3xl text-gray-800 leading-relaxed italic">
+                "Dirancang untuk Swing Trader, Manajer Investasi Independen, dan Komunitas Trading Eksklusif."
+            </p>
         </div>
     </section>
 
     <footer class="py-12 border-t border-gray-100 bg-white text-center">
         <div class="font-serif text-xl font-bold tracking-tight text-gray-900 mb-2">TMD | The Macro Desk</div>
-        <p class="text-xs text-gray-500 uppercase tracking-widest">Sebuah inisiatif dari Nexora. © 2026 Hak Cipta Dilindungi.</p>
-    </footer>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TMD | The Macro Desk by Nexora</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #111827; }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        .hero-pattern { background-image: radial-gradient(#E5E7EB 1px, transparent 1px); background-size: 24px 24px; }
-        .chart-card { background: white; border-radius: 16px; border: 1px solid #F3F4F6; transition: all 0.3s ease; }
-        .chart-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -10px rgba(0,0,0,0.05); }
-    </style>
-</head>
-<body class="antialiased selection:bg-gray-900 selection:text-white">
-
-    <nav class="border-b border-gray-100 bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-baseline space-x-2">
-                <span class="font-serif text-2xl font-bold tracking-tight text-gray-900">TMD</span>
-                <span class="text-gray-300 font-light">|</span>
-                <span class="font-serif text-lg font-medium text-gray-800">The Macro Desk</span>
-                <span class="text-[10px] uppercase tracking-widest text-gray-400 font-sans ml-1 border border-gray-100 px-2 py-0.5 rounded-full hidden sm:inline-block">by Nexora</span>
-            </div>
-            <button class="text-sm font-medium text-gray-600 hover:text-gray-900 transition border border-gray-200 px-4 py-2 rounded-full hover:border-gray-900 shadow-sm">
-                Join Waitlist B2B
-            </button>
-        </div>
-    </nav>
-
-    <section class="hero-pattern pt-24 pb-16 px-6 text-center border-b border-gray-100">
-        <div class="max-w-4xl mx-auto">
-            <div class="inline-block px-3 py-1 mb-6 border border-gray-200 rounded-full text-xs font-medium uppercase tracking-widest text-gray-500 bg-white">
-                Platform Analitik Generasi Baru
-            </div>
-            <h1 class="font-serif text-5xl md:text-6xl font-semibold leading-tight mb-6 text-gray-900">
-                Kejernihan Makro.
-            </h1>
-            <p class="text-lg text-gray-600 mb-12 font-light leading-relaxed max-w-2xl mx-auto">
-                TMD menyederhanakan data global menjadi keputusan trading yang presisi dalam antarmuka kelas eksekutif. Tidak ada lagi kebisingan pasar.
-            </p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                <div class="chart-card p-4 h-64 relative text-left">
-                    <div class="mb-2">
-                        <div class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Commodity</div>
-                        <div class="font-serif text-sm font-bold text-gray-900">Gold (XAU/USD)</div>
-                    </div>
-                    <div class="tradingview-widget-container h-44">
-                        <div class="tradingview-widget-container__widget h-full"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                        {
-                          "symbol": "OANDA:XAUUSD",
-                          "width": "100%",
-                          "height": "100%",
-                          "locale": "id",
-                          "dateRange": "1M",
-                          "colorTheme": "light",
-                          "isTransparent": true,
-                          "autosize": true,
-                          "largeChartUrl": ""
-                        }
-                        </script>
-                    </div>
-                </div>
-
-                <div class="chart-card p-4 h-64 text-left">
-                    <div class="mb-2">
-                        <div class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Index</div>
-                        <div class="font-serif text-sm font-bold text-gray-900">IHSG</div>
-                    </div>
-                    <div class="tradingview-widget-container h-44">
-                        <div class="tradingview-widget-container__widget h-full"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                        {
-                          "symbol": "IDX:COMPOSITE",
-                          "width": "100%",
-                          "height": "100%",
-                          "locale": "id",
-                          "dateRange": "1M",
-                          "colorTheme": "light",
-                          "isTransparent": true,
-                          "autosize": true,
-                          "largeChartUrl": ""
-                        }
-                        </script>
-                    </div>
-                </div>
-
-                <div class="chart-card p-4 h-64 text-left">
-                    <div class="mb-2">
-                        <div class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Forex</div>
-                        <div class="font-serif text-sm font-bold text-gray-900">USD / IDR</div>
-                    </div>
-                    <div class="tradingview-widget-container h-44">
-                        <div class="tradingview-widget-container__widget h-full"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                        {
-                          "symbol": "FX_IDC:USDIDR",
-                          "width": "100%",
-                          "height": "100%",
-                          "locale": "id",
-                          "dateRange": "1M",
-                          "colorTheme": "light",
-                          "isTransparent": true,
-                          "autosize": true,
-                          "largeChartUrl": ""
-                        }
-                        </script>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <button class="w-full sm:w-auto px-8 py-3 bg-gray-900 text-white rounded-lg text-sm font-semibold tracking-wide shadow-md hover:bg-gray-800 transition">
-                    Join Waitlist
-                </button>
-                <button class="w-full sm:w-auto px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-lg text-sm font-semibold tracking-wide hover:bg-gray-50 transition">
-                    Learn More
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-6 bg-gray-50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="font-serif text-3xl font-semibold mb-4">Dirancang Untuk Akurasi, Bukan Distraksi.</h2>
-                <p class="text-gray-600 font-light">Tiga pilar utama kami mengubah data mentah menjadi keunggulan kompetitif Anda.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h3 class="font-serif text-xl font-semibold mb-3">AI Sentiment Meter</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed font-light">Sistem AI merangkum ribuan berita fundamental harian menjadi satu persentase probabilitas sentimen yang tegas dan jelas.</p>
-                </div>
-
-                <div class="bg-white p-8 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
-                    </div>
-                    <h3 class="font-serif text-xl font-semibold mb-3">Korelasi Makro Kausalitas</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed font-light">Tidak sekadar menyajikan berita. Kami memetakan dampak langsung rilis data makro terhadap pergerakan instrumen spesifik.</p>
-                </div>
-
-                <div class="bg-white p-8 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="font-serif text-xl font-semibold mb-3">Kilas Balik Historis</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed font-light">Validasi keputusan trading Anda dengan melihat preseden historis pergerakan harga saat menghadapi kondisi makro serupa di masa lalu.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 border-t border-gray-100 bg-white text-center">
-        <div class="font-serif text-xl font-bold tracking-tight text-gray-900 mb-2">TMD | The Macro Desk</div>
-        <p class="text-xs text-gray-500 uppercase tracking-widest">Sebuah inisiatif dari Nexora. © 2026 Hak Cipta Dilindungi.</p>
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Powered by Nexora. © 2026 Hak Cipta Dilindungi.</p>
     </footer>
 
 </body>
