@@ -7,22 +7,40 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #111827; scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: #111827; scroll-behavior: smooth; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        .hero-pattern { background-image: radial-gradient(#E5E7EB 1px, transparent 1px); background-size: 32px 32px; }
-        .iphone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; border: 8px solid #1f1f1f; position: relative; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.15); }
+        
+        /* Premium Soft Gradient Background */
+        .hero-gradient { 
+            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 50%, #eef2ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Subtle glowing orb effect in the background */
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: -20%; right: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(224,231,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .iphone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; border: 8px solid #1f1f1f; position: relative; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.15); z-index: 10;}
         .iphone-screen { width: 100%; height: 100%; background: #F9FAFB; border-radius: 32px; overflow: hidden; }
-        .glass-card { background: white; border: 1px solid #F3F4F6; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); }
+        .content-z { position: relative; z-index: 10; }
     </style>
 </head>
-<body class="antialiased selection:bg-gray-900 selection:text-white">
+<body class="antialiased selection:bg-gray-900 selection:text-white bg-gray-50">
 
     <nav class="border-b border-gray-100 bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-baseline space-x-2">
                 <span class="font-serif text-2xl font-bold tracking-tight">TMD</span>
                 <span class="text-gray-300 font-light">|</span>
-                <span class="text-xs uppercase tracking-widest text-gray-500 font-medium">By Nexora</span>
+                <span class="text-[10px] uppercase tracking-widest text-gray-500 font-medium">By Nexora</span>
             </div>
             <button class="text-sm font-semibold text-gray-900 border border-gray-900 px-5 py-2 rounded-full hover:bg-gray-900 hover:text-white transition">
                 Join Waitlist
@@ -30,37 +48,41 @@
         </div>
     </nav>
 
-    <section class="hero-pattern pt-20 pb-32 px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <section class="hero-gradient pt-20 pb-32 px-6 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center content-z">
             <div class="text-left">
-                <div class="inline-block px-3 py-1 mb-6 border border-gray-200 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 bg-white">
-                    Platform Analitik Generasi Baru
+                <div class="inline-block px-3 py-1 mb-6 border border-gray-200 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 bg-white/80 backdrop-blur-sm">
+                    Revolusi Analisa Trading
                 </div>
                 <h1 class="font-serif text-5xl md:text-7xl font-semibold leading-[1.1] mb-8 text-gray-900">
-                    Kejernihan Makro di Tengah Kebisingan Pasar.
+                    Trading Lebih Tenang, Biar AI yang Mikir Makronya.
                 </h1>
-                <p class="text-xl text-gray-500 mb-10 font-light leading-relaxed max-w-lg">
-                    Platform analitik berbasis AI yang merangkum sentimen global dan data makro menjadi keputusan trading yang presisi.
+                <p class="text-xl text-gray-600 mb-10 font-light leading-relaxed max-w-lg">
+                    Gak perlu lagi pusing baca ribuan berita atau takut FOMO. TMD ngerangkum sentimen global jadi sinyal yang gampang kamu eksekusi.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <button class="px-8 py-4 bg-gray-900 text-white rounded-lg text-sm font-semibold tracking-wide hover:shadow-xl transition-all">
-                        Bergabung di Waitlist
+                    <button class="px-8 py-4 bg-gray-900 text-white rounded-lg text-sm font-semibold tracking-wide hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                        Join Waitlist Sekarang
                     </button>
-                    <button class="px-8 py-4 bg-white text-gray-900 border border-gray-200 rounded-lg text-sm font-semibold tracking-wide hover:bg-gray-50 transition">
-                        Coba Versi Beta
+                    <button class="px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-900 border border-gray-200 rounded-lg text-sm font-semibold tracking-wide hover:bg-white transition-all">
+                        Lihat Demo
                     </button>
                 </div>
             </div>
+            
             <div class="hidden md:flex justify-center">
                 <div class="iphone-mockup">
-                    <div class="iphone-screen p-4">
+                    <div class="iphone-screen p-4 flex flex-col">
                         <div class="w-12 h-1 bg-gray-200 mx-auto mb-6 rounded-full mt-2"></div>
-                        <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">XAU/USD</div>
-                        <div class="font-serif text-xl font-bold mb-4">$2,345.50</div>
-                        <div class="w-full h-32 bg-white border border-gray-100 rounded-xl mb-4"></div>
-                        <div class="p-3 bg-white border border-gray-100 rounded-xl">
-                            <div class="text-[8px] uppercase tracking-widest text-gray-400 mb-1">AI Sentiment</div>
-                            <div class="text-[10px] text-gray-700 leading-tight">Sentiment: 78% Bullish. Macro drivers are aligning with technical resistance.</div>
+                        <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Live Asset</div>
+                        <div class="font-serif text-xl font-bold mb-4">Gold (XAU/USD)</div>
+                        <div class="flex-grow bg-white border border-gray-100 rounded-xl mb-4 relative overflow-hidden flex items-center justify-center">
+                            <span class="text-xs text-gray-300">Live Chart Active</span>
+                        </div>
+                        <div class="p-4 bg-gray-900 rounded-xl text-white">
+                            <div class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">AI Sentiment Meter</div>
+                            <div class="text-sm font-semibold mb-1">78% Bullish Hari Ini</div>
+                            <div class="text-[10px] text-gray-300 font-light leading-relaxed">Faktor makro mendukung kenaikan. Tahan posisi santai.</div>
                         </div>
                     </div>
                 </div>
@@ -68,18 +90,18 @@
         </div>
     </section>
 
-    <section class="py-40 px-6 bg-white text-center">
-        <div class="max-w-3xl mx-auto">
+    <section class="py-32 px-6 bg-white text-center">
+        <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-light leading-relaxed text-gray-400">
-                Terminal trading saat ini <span class="text-gray-900 font-normal">terlalu bising.</span> Berita yang tumpang tindih. Data yang memicu FOMO. Anda butuh <span class="italic font-serif text-gray-900">kejernihan</span>, bukan sekadar kecepatan.
+                Jujur aja, ngeliatin chart yang rame dan berita yang numpuk itu bikin capek dan gampang <span class="text-gray-900 font-normal">kepancing emosi</span>. Udah waktunya kamu trading pakai data yang <span class="italic font-serif text-gray-900">rapi dan terukur.</span>
             </h2>
         </div>
     </section>
 
     <section class="pb-32 px-6 bg-white">
         <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-card p-6 rounded-2xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-6 rounded-2xl border border-gray-100 hover:border-gray-300 transition">
                     <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">Commodity</div>
                     <div class="font-serif text-lg font-bold mb-4">Gold (XAU/USD)</div>
                     <div class="h-48">
@@ -88,8 +110,8 @@
                         </script>
                     </div>
                 </div>
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">Index</div>
+                <div class="glass-card p-6 rounded-2xl border border-gray-100 hover:border-gray-300 transition">
+                    <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">Index Lokal</div>
                     <div class="font-serif text-lg font-bold mb-4">IHSG</div>
                     <div class="h-48">
                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
@@ -97,7 +119,7 @@
                         </script>
                     </div>
                 </div>
-                <div class="glass-card p-6 rounded-2xl">
+                <div class="glass-card p-6 rounded-2xl border border-gray-100 hover:border-gray-300 transition">
                     <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">Forex</div>
                     <div class="font-serif text-lg font-bold mb-4">USD / IDR</div>
                     <div class="h-48">
@@ -110,40 +132,40 @@
         </div>
     </section>
 
-    <section class="py-32 px-6 bg-gray-50 border-t border-gray-100">
+    <section class="py-32 px-6 bg-[#fafafa] border-t border-gray-100">
         <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-12">
+            <div class="grid md:grid-cols-3 gap-16">
                 <div class="space-y-4">
-                    <div class="w-10 h-10 bg-gray-900 text-white flex items-center justify-center rounded-lg font-bold">1</div>
-                    <h3 class="font-serif text-2xl font-bold">AI Sentiment Meter</h3>
-                    <p class="text-gray-500 font-light leading-relaxed">Sistem AI kami merangkum ribuan berita fundamental harian menjadi skor persentase yang tegas, membantu Anda memahami psikologi pasar dalam satu lirikan.</p>
+                    <div class="w-12 h-12 bg-gray-900 text-white flex items-center justify-center rounded-xl font-bold shadow-lg shadow-gray-200">1</div>
+                    <h3 class="font-serif text-2xl font-bold text-gray-900">AI Sentiment Meter</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">Sistem AI kita yang baca ribuan beritanya, kamu tinggal lihat persentase akhirnya. Langsung ketahuan market lagi optimis atau malah panik.</p>
                 </div>
                 <div class="space-y-4">
-                    <div class="w-10 h-10 bg-gray-900 text-white flex items-center justify-center rounded-lg font-bold">2</div>
-                    <h3 class="font-serif text-2xl font-bold">Macro Causality</h3>
-                    <p class="text-gray-500 font-light leading-relaxed">Memetakan korelasi langsung antara rilis data makro ekonomi global dengan pergerakan aset riil. Tidak ada lagi tebak-tebakan dampaknya.</p>
+                    <div class="w-12 h-12 bg-gray-900 text-white flex items-center justify-center rounded-xl font-bold shadow-lg shadow-gray-200">2</div>
+                    <h3 class="font-serif text-2xl font-bold text-gray-900">Korelasi Tanpa Ribet</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">Gak usah nebak-nebak apa efek pidato The Fed. Kita kasih lihat langsung gimana korelasi data makro sama pergerakan harga aset pilihanmu.</p>
                 </div>
                 <div class="space-y-4">
-                    <div class="w-10 h-10 bg-gray-900 text-white flex items-center justify-center rounded-lg font-bold">3</div>
-                    <h3 class="font-serif text-2xl font-bold">Historical Playback</h3>
-                    <p class="text-gray-500 font-light leading-relaxed">Validasi keputusan Anda dengan fitur "Kilas Balik" untuk melihat secara akurat bagaimana pasar bereaksi terhadap pola data serupa di masa lalu.</p>
+                    <div class="w-12 h-12 bg-gray-900 text-white flex items-center justify-center rounded-xl font-bold shadow-lg shadow-gray-200">3</div>
+                    <h3 class="font-serif text-2xl font-bold text-gray-900">Kilas Balik Historis</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">Lagi ragu mau masuk pasar? Cek aja data historisnya. Liat persis gimana harga bergerak waktu ada berita yang mirip-mirip di masa lalu.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6 bg-white border-t border-gray-50">
+    <section class="py-24 px-6 bg-white border-t border-gray-100">
         <div class="max-w-4xl mx-auto text-center">
-            <h3 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-8">Dirancang Untuk Profesional</h3>
+            <h3 class="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold mb-8">Siapa Yang Cocok Pakai Ini?</h3>
             <p class="font-serif text-2xl md:text-3xl text-gray-800 leading-relaxed italic">
-                "Dirancang untuk Swing Trader, Manajer Investasi Independen, dan Komunitas Trading Eksklusif."
+                "Dibuat khusus buat Swing Trader, Fund Manager, dan Komunitas Trading yang lebih milih akurasi dibanding kecepatan asal-asalan."
             </p>
         </div>
     </section>
 
     <footer class="py-12 border-t border-gray-100 bg-white text-center">
         <div class="font-serif text-xl font-bold tracking-tight text-gray-900 mb-2">TMD | The Macro Desk</div>
-        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Powered by Nexora. © 2026 Hak Cipta Dilindungi.</p>
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Powered by Nexora. © 2026</p>
     </footer>
 
 </body>
