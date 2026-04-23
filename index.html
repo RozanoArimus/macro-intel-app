@@ -25,8 +25,9 @@
             display: grid;
             grid-template-columns: 1.6fr 1fr;
             background-color: #e2e8f0;
+            min-height: 480px;
         }
-        .screen-left { background: #ffffff; padding: 1.5rem; }
+        .screen-left { background: #ffffff; padding: 1.5rem; display: flex; flex-col: column; }
         .screen-right { background: #0f172a; padding: 1.5rem; color: #f8fafc; }
         
         .gauge-container {
@@ -48,7 +49,7 @@
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <span class="font-serif text-3xl font-bold tracking-tighter">TMD</span>
+                <span class="font-serif text-3xl font-bold tracking-tighter text-slate-900">TMD</span>
                 <span class="h-6 w-px bg-slate-200"></span>
                 <span class="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-bold">The Macro Desk by Nexora</span>
             </div>
@@ -58,7 +59,7 @@
         </div>
     </nav>
 
-    <section class="min-h-[90vh] flex align-center py-16 px-6">
+    <section class="min-h-[90vh] flex items-center py-16 px-6">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
             <div class="max-w-xl">
                 <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 mb-8">
@@ -78,37 +79,56 @@
 
             <div class="macbook-frame">
                 <div class="macbook-screen">
-                    <div class="screen-left">
-                        <div class="flex justify-between items-center mb-6">
+                    <div class="screen-left flex flex-col">
+                        <div class="flex justify-between items-center mb-4">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Live Market</span>
-                            <span class="text-xs font-bold text-blue-600">$2,345.50</span>
+                            <span class="text-xs font-bold text-blue-600">Real-time Data</span>
                         </div>
-                        <h3 class="font-serif text-2xl font-bold mb-4">XAU/USD (Gold)</h3>
-                        <div class="w-full h-40 bg-slate-50 rounded-xl border border-slate-100 flex items-end p-2 space-x-1 mb-6">
-                            <div class="flex-1 bg-blue-100 rounded-sm" style="height: 40%"></div>
-                            <div class="flex-1 bg-blue-200 rounded-sm" style="height: 60%"></div>
-                            <div class="flex-1 bg-blue-400 rounded-sm" style="height: 50%"></div>
-                            <div class="flex-1 bg-blue-600 rounded-sm" style="height: 80%"></div>
+                        
+                        <div class="flex-grow w-full bg-slate-50 rounded-xl overflow-hidden border border-slate-100">
+                            <div class="tradingview-widget-container h-full w-full">
+                                <div class="tradingview-widget-container__widget h-full w-full"></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                                {
+                                  "symbol": "OANDA:XAUUSD",
+                                  "width": "100%",
+                                  "height": "100%",
+                                  "locale": "id",
+                                  "dateRange": "1M",
+                                  "colorTheme": "light",
+                                  "trendLineColor": "rgba(37, 99, 235, 1)",
+                                  "underLineColor": "rgba(37, 99, 235, 0.1)",
+                                  "isTransparent": true,
+                                  "autosize": true
+                                }
+                                </script>
+                            </div>
                         </div>
-                        <div class="p-4 bg-green-50 rounded-xl border border-green-100">
+
+                        <div class="p-4 bg-green-50 rounded-xl border border-green-100 mt-4">
                             <div class="text-[9px] font-bold text-green-700 uppercase mb-1">TMD Sinyal Taktis</div>
                             <div class="text-lg font-bold text-green-900 uppercase">Posisi BELI Kuat</div>
                         </div>
                     </div>
+                    
                     <div class="screen-right">
                         <div class="mb-8 text-center">
                             <div class="gauge-container mb-3"><div class="gauge-needle"></div></div>
                             <span class="text-[9px] uppercase tracking-widest text-slate-500 font-bold">AI Sentiment</span>
                             <div class="text-xl font-bold text-green-400">78% BULLISH</div>
                         </div>
-                        <div class="space-y-4">
-                            <div class="border-b border-slate-800 pb-2">
-                                <div class="text-[9px] uppercase text-slate-500 mb-1">Macro Flow</div>
-                                <div class="text-[10px] text-slate-300">CPI Data → Yields → Gold Target</div>
+                        <div class="space-y-6">
+                            <div class="border-b border-slate-800 pb-4">
+                                <div class="text-[9px] uppercase text-slate-500 mb-2 font-bold">Macro Flow</div>
+                                <div class="text-[10px] text-slate-300 leading-relaxed">
+                                    Dolar melemah (DXY ↓) memicu aliran modal ke aset aman. Target XAU berada di level $2,350.
+                                </div>
                             </div>
-                            <div class="border-b border-slate-800 pb-2">
-                                <div class="text-[9px] uppercase text-slate-500 mb-1">Historical Playback</div>
-                                <div class="text-[10px] text-slate-300 italic">Pola NFP 2024 terdeteksi.</div>
+                            <div class="border-b border-slate-800 pb-4">
+                                <div class="text-[9px] uppercase text-slate-500 mb-2 font-bold">Historical Playback</div>
+                                <div class="text-[10px] text-slate-300 italic leading-relaxed">
+                                    Anomali rilis data NFP serupa terjadi pada 2024. Akurasi setup ini mencapai 74%.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -120,7 +140,7 @@
     <section class="py-40 bg-slate-50 border-y border-slate-100 px-6 text-center">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl md:text-5xl font-light leading-relaxed text-slate-400">
-                Terminal trading saat ini <span class="text-slate-900 font-normal">terlalu bising.</span> Berita yang tumpang tindih. Data yang memicu FOMO. Anda butuh <span class="italic font-serif text-gray-900">kejernihan</span>, bukan sekadar kecepatan.
+                Terminal trading saat ini <span class="text-gray-900 font-normal">terlalu bising.</span> Berita yang tumpang tindih. Data yang memicu FOMO. Anda butuh <span class="italic font-serif text-gray-900">kejernihan</span>, bukan sekadar kecepatan.
             </h2>
         </div>
     </section>
