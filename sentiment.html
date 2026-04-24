@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Meter | TMD Intelligence Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        /* Sidebar & Layout */
+        .sidebar { width: 240px; border-right: 1px solid #1e293b; background: #0f172a; }
+        .main-content { flex: 1; overflow-y: auto; }
+        
+        /* Glass Effect */
+        .panel { background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 16px; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        
+        .active-link { background: #1e293b; color: #38bdf8; border-right: 3px solid #38bdf8; }
+
+        /* Large Gauge Styling */
+        .big-gauge-wrapper { position: relative; width: 300px; height: 150px; margin: 0 auto; }
+        .big-gauge {
+            width: 100%; height: 100%;
+            background: conic-gradient(from 270deg at 50% 100%, #ef4444 0deg, #f97316 45deg, #eab308 90deg, #84cc16 135deg, #22c55e 180deg);
+            border-radius: 300px 300px 0 0;
+            position: relative; overflow: hidden;
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .big-gauge::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 200px; height: 100px;
+            background: #0f172a;
+            border-radius: 200px 200px 0 0;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
+        }
+        .big-needle {
+            position: absolute; bottom: -10px; left: 50%;
+            width: 6px; height: 140px; background: #ffffff;
+            transform-origin: bottom center; transform: rotate(55deg); /* 78% position */
+            border-radius: 10px; z-index: 10;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .needle-base {
+            position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+            width: 30px; height: 30px; background: #ffffff;
+            border-radius: 50%; z-index: 11;
+        }
+
+        /* Progress Bars */
+        .progress-bg { background: #1e293b; border-radius: 10px; height: 8px; width: 100%; overflow: hidden; }
+        .progress-fill-green { background: #22c55e; height: 100%; border-radius: 10px; }
+        .progress-fill-red { background: #ef4444; height: 100%; border-radius: 10px; }
+        .progress-fill-yellow { background: #eab308; height: 100%; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <aside class="sidebar hidden md:flex flex-col p-6">
+        <div class="font-serif text-2xl font-bold mb-10 tracking-tighter text-white">TMD</div>
+        <nav class="space-y-2 flex-grow">
+            <a href="dashboard.html" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 text-sm hover:bg-slate-800 transition">
+                <span>Intelligence Hub</span>
+            </a>
+            <a href="sentiment.html" class="flex items-center space-x-3 p-3 rounded-lg active-link text-sm font-medium transition">
+                <span>AI Sentiment Meter</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 text-sm hover:bg-slate-800 transition">
+                <span>Correlation Matrix</span>
+            </a>
+        </nav>
+        <div class="pt-6 border-t border-slate-800">
+            <a href="index.html" class="text-xs text-slate-500 hover:text-white transition">← Back to Website</a>
+        </div>
+    </aside>
+
+    <main class="main-content flex flex-col p-4 md:p-8 space-y-8">
+        
+        <header>
+            <h1 class="text-3xl font-bold font-serif mb-2">Global Sentiment Radar</h1>
+            <p class="text-sm text-slate-400">Mensintesis 5.240 literatur finansial dan berita dalam 24 jam terakhir.</p>
+        </header>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+            
+            <div class="panel p-8 lg:col-span-2 flex flex-col items-center justify-center">
+                <div class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-8">Overall Market Sentiment</div>
+                
+                <div class="big-gauge-wrapper mb-6">
+                    <div class="big-gauge"></div>
+                    <div class="big-needle"></div>
+                    <div class="needle-base"></div>
+                </div>
+                
+                <div class="text-center">
+                    <h2 class="text-5xl font-bold text-green-400 mb-2">78.4%</h2>
+                    <div class="text-xl font-bold text-white uppercase tracking-wider">Bullish / Greed</div>
+                    <p class="text-sm text-slate-400 mt-4 max-w-md">
+                        Pelemahan indeks Dolar (DXY) dan sentimen *dovish* dari The Fed mendorong aliran dana masif ke aset *safe-haven* dan ekuitas.
+                    </p>
+                </div>
+            </div>
+
+            <div class="panel p-6 flex flex-col justify-center space-y-6">
+                <h3 class="text-xs uppercase tracking-widest text-slate-400 font-bold border-b border-slate-700 pb-3">Breakdown by Asset</h3>
+                
+                <div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="font-bold">Gold (XAU)</span>
+                        <span class="text-green-400 font-bold">85% Bullish</span>
+                    </div>
+                    <div class="progress-bg"><div class="progress-fill-green" style="width: 85%"></div></div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="font-bold">Indeks Lokal (IHSG)</span>
+                        <span class="text-yellow-400 font-bold">55% Neutral</span>
+                    </div>
+                    <div class="progress-bg"><div class="progress-fill-yellow" style="width: 55%"></div></div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="font-bold">US Dollar (DXY)</span>
+                        <span class="text-red-400 font-bold">20% Bearish</span>
+                    </div>
+                    <div class="progress-bg"><div class="progress-fill-red" style="width: 20%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel p-6">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-4 mb-6">
+                <h3 class="text-sm uppercase tracking-widest text-slate-300 font-bold">AI Extraction Log (Real-time)</h3>
+                <span class="text-[10px] bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-600">Showing Top 4 Drivers</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead>
+                        <tr class="text-slate-500 border-b border-slate-800 text-xs uppercase tracking-wider">
+                            <th class="pb-3 font-medium">Waktu</th>
+                            <th class="pb-3 font-medium">Sumber Berita / Data</th>
+                            <th class="pb-3 font-medium">Ekstraksi NLP (Natural Language)</th>
+                            <th class="pb-3 font-medium text-right">Skor Sentimen</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-300">
+                        <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition">
+                            <td class="py-4 text-xs text-slate-500 whitespace-nowrap">14:20 WIB</td>
+                            <td class="py-4 font-semibold text-white">Reuters (Global)</td>
+                            <td class="py-4 pr-4">"Inflasi AS melambat lebih cepat dari perkiraan, membuka ruang pemotongan suku bunga bulan depan."</td>
+                            <td class="py-4 text-right"><span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold border border-green-500/30">+8.5 Bullish</span></td>
+                        </tr>
+                        <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition">
+                            <td class="py-4 text-xs text-slate-500 whitespace-nowrap">13:05 WIB</td>
+                            <td class="py-4 font-semibold text-white">Bloomberg Terminal</td>
+                            <td class="py-4 pr-4">"Lonjakan permintaan fisik emas dari Bank Sentral China berlanjut selama 18 bulan berturut-turut."</td>
+                            <td class="py-4 text-right"><span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold border border-green-500/30">+6.2 Bullish</span></td>
+                        </tr>
+                        <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition">
+                            <td class="py-4 text-xs text-slate-500 whitespace-nowrap">11:30 WIB</td>
+                            <td class="py-4 font-semibold text-white">Laporan Kemenkeu RI</td>
+                            <td class="py-4 pr-4">"Penerimaan pajak melambat di kuartal pertama, mengindikasikan perlambatan konsumsi domestik."</td>
+                            <td class="py-4 text-right"><span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-xs font-bold border border-red-500/30">-4.1 Bearish</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 text-xs text-slate-500 whitespace-nowrap">09:15 WIB</td>
+                            <td class="py-4 font-semibold text-white">CNBC Market</td>
+                            <td class="py-4 pr-4">"Harga minyak mentah stabil jelang pertemuan OPEC+, meredakan kekhawatiran inflasi energi."</td>
+                            <td class="py-4 text-right"><span class="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-xs font-bold border border-yellow-500/30">+1.0 Neutral</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
