@@ -39,10 +39,6 @@
         .track-fill { height: 100%; border-radius: 6px; position: relative; }
         .track-fill::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2)); }
 
-        th { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(51, 65, 85, 0.5); }
-        td { padding: 0.75rem 0; border-bottom: 1px solid rgba(51, 65, 85, 0.2); color: #cbd5e1; font-size: 0.8rem; }
-        tr:last-child td { border-bottom: none; }
-        
         .tag { padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
         .tag-amber { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); }
         .tag-emerald { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
@@ -53,6 +49,12 @@
         .user-chat-bubble { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px 2px 12px 12px; color: #f8fafc; }
         .chat-input { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(51, 65, 85, 0.8); transition: all 0.3s; }
         .chat-input:focus { border-color: #eab308; outline: none; box-shadow: 0 0 10px rgba(234, 179, 8, 0.2); }
+        
+        /* Typing indicator animation */
+        .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -136,67 +138,135 @@
             </div>
         </div>
 
-        <div class="glass-panel w-1/3 h-full flex flex-col border border-yellow-500/20 shadow-[0_0_30px_rgba(234,179,8,0.05)] relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 blur-[50px] pointer-events-none"></div>
+        <div class="glass-panel w-1/3 h-full flex flex-col border border-emerald-500/20 shadow-[0_0_30px_rgba(16,185,129,0.05)] relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-[50px] pointer-events-none"></div>
             
             <div class="panel-title border-b border-slate-700/50 pb-4 bg-slate-900/40">
                 <div class="flex items-center space-x-3">
                     <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
                     <div>
                         <span class="block">TMD Quant AI</span>
-                        <span class="text-[0.6rem] font-sans text-emerald-400 uppercase tracking-widest block mt-0.5">Macro Trading Assistant</span>
+                        <span class="text-[0.6rem] font-sans text-emerald-400 uppercase tracking-widest block mt-0.5">Live Live Connection</span>
                     </div>
                 </div>
-                <button class="text-slate-500 hover:text-white">⋮</button>
             </div>
             
-            <div class="flex-grow p-5 overflow-y-auto space-y-6 text-sm flex flex-col">
-                
+            <div id="chat-feed" class="flex-grow p-5 overflow-y-auto space-y-6 text-sm flex flex-col scroll-smooth">
                 <div class="flex flex-col space-y-1">
                     <span class="text-[0.65rem] text-slate-500 font-bold uppercase tracking-widest ml-1">Quant AI</span>
                     <div class="ai-chat-bubble p-4 text-slate-300 shadow-sm">
-                        Selamat datang di terminal eksekutif. Indikator sentimen global saat ini berada di <span class="text-emerald-400 font-bold">78.4% Bullish</span> akibat pelemahan DXY. Ada instrumen spesifik yang ingin Anda analisa hari ini?
-                    </div>
-                </div>
-
-                <div class="flex flex-col space-y-1 items-end">
-                    <span class="text-[0.65rem] text-emerald-500/80 font-bold uppercase tracking-widest mr-1">You</span>
-                    <div class="user-chat-bubble p-4 max-w-[85%] text-right shadow-sm">
-                        Coba analisa potensi XAUUSD sore ini menjelang rilis data NFP besok. Berikan sinyal taktisnya.
-                    </div>
-                </div>
-
-                <div class="flex flex-col space-y-1">
-                    <span class="text-[0.65rem] text-slate-500 font-bold uppercase tracking-widest ml-1">Quant AI <span class="text-emerald-500 normal-case tracking-normal ml-2">✓ Terverifikasi AI Sentiment Meter</span></span>
-                    <div class="ai-chat-bubble p-4 text-slate-300 shadow-sm space-y-3">
-                        <p>Secara historis, XAUUSD cenderung <i>ranging</i> (konsolidasi) pada H-1 rilis data NFP karena pasar bersikap <i class="text-slate-400">wait-and-see</i>.</p>
-                        
-                        <div class="bg-slate-900/50 border border-slate-700/50 p-3 rounded-lg text-xs space-y-2 mt-2">
-                            <div class="text-[0.6rem] uppercase tracking-widest text-slate-500 font-bold border-b border-slate-700 pb-1">TMD Tactical Setup (XAU/USD)</div>
-                            <div class="flex justify-between"><span>Sinyal:</span> <span class="text-emerald-400 font-bold">BUY ON DIP</span></div>
-                            <div class="flex justify-between"><span>Area Entry:</span> <span>$2,325 - $2,330</span></div>
-                            <div class="flex justify-between"><span>Take Profit:</span> <span class="text-emerald-400">$2,350</span></div>
-                            <div class="flex justify-between"><span>Stop Loss:</span> <span class="text-rose-400">$2,315</span></div>
-                            <div class="flex justify-between"><span>Probabilitas:</span> <span class="text-yellow-400">72%</span></div>
-                        </div>
-
-                        <p class="text-xs text-slate-400 italic">Perhatikan pergerakan Yield Obligasi AS 10-Tahun sore ini. Jika turun di bawah 4.3%, target $2,350 akan dicapai lebih cepat.</p>
+                        Sistem AI TMD Online. Saya siap membedah pergerakan pasar, korelasi makro, atau memberikan panduan taktis. Apa yang ingin Anda analisa hari ini?
                     </div>
                 </div>
             </div>
 
             <div class="p-4 border-t border-slate-700/50 bg-slate-900/40">
-                <div class="relative">
-                    <input type="text" placeholder="Ketik perintah (misal: 'Korelasi IHSG dan USDIDR')..." class="chat-input w-full py-3 pl-4 pr-12 rounded-xl text-xs text-white placeholder-slate-500">
-                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-yellow-500 hover:bg-yellow-400 text-slate-900 rounded-lg transition-colors">
+                <form id="chat-form" class="relative">
+                    <input type="text" id="chat-input" autocomplete="off" placeholder="Ketik pertanyaan seputar market..." class="chat-input w-full py-3 pl-4 pr-12 rounded-xl text-xs text-white placeholder-slate-500">
+                    <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-emerald-500 hover:bg-emerald-400 text-slate-900 rounded-lg transition-colors">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     </button>
-                </div>
+                </form>
                 <div class="text-[0.55rem] text-center text-slate-500 mt-2">AI Quant can make mistakes. Verify critical trading decisions.</div>
             </div>
         </div>
 
     </main>
 
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatFeed = document.getElementById('chat-feed');
+
+        // Kunci API Anda dimasukkan di sini
+        const API_KEY = 'AIzaSyAvS-rWBmB6p9g0B-WcH1NtVZJh7qRfKQY'; 
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+        chatForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const message = chatInput.value.trim();
+            if(!message) return;
+
+            // 1. Tampilkan Pesan User
+            appendUserMessage(message);
+            chatInput.value = '';
+            chatFeed.scrollTop = chatFeed.scrollHeight;
+
+            // 2. Tampilkan Animasi Mengetik
+            const typingId = showTypingIndicator();
+            chatFeed.scrollTop = chatFeed.scrollHeight;
+
+            // 3. Panggil API AI
+            try {
+                const systemPrompt = `Kamu adalah TMD Quant AI, asisten trading elit dan analis makroekonomi dari platform The Macro Desk (TMD). Jawab pertanyaan berikut dengan bahasa Indonesia yang sangat profesional, tajam, dan analitis selayaknya fund manager. Jangan terlalu panjang, langsung ke intinya. Berikan pandangan probabilitas atau korelasi jika memungkinkan. Pertanyaan user: ${message}`;
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: systemPrompt }] }]
+                    })
+                });
+
+                const data = await response.json();
+                
+                document.getElementById(typingId).remove(); 
+
+                if(data.candidates && data.candidates[0].content.parts[0].text) {
+                    let aiText = data.candidates[0].content.parts[0].text;
+                    aiText = aiText.replace(/\*\*(.*?)\*\*/g, '<b class="text-white">$1</b>'); 
+                    aiText = aiText.replace(/\*(.*?)\*/g, '<i class="text-slate-400">$1</i>');     
+                    
+                    appendAIMessage(aiText);
+                } else {
+                    appendAIMessage("Analisa terganggu. Sistem sedang melakukan kalibrasi data makro.");
+                }
+
+            } catch (error) {
+                if(document.getElementById(typingId)) document.getElementById(typingId).remove();
+                appendAIMessage("Koneksi API terputus atau API Key tidak valid. Pastikan pengaturan server aman.");
+            }
+            
+            chatFeed.scrollTop = chatFeed.scrollHeight;
+        });
+
+        function appendUserMessage(text) {
+            const html = `
+                <div class="flex flex-col space-y-1 items-end">
+                    <span class="text-[0.65rem] text-emerald-500/80 font-bold uppercase tracking-widest mr-1">You</span>
+                    <div class="user-chat-bubble p-4 max-w-[85%] text-right shadow-sm text-sm">
+                        ${text}
+                    </div>
+                </div>
+            `;
+            chatFeed.insertAdjacentHTML('beforeend', html);
+        }
+
+        function showTypingIndicator() {
+            const id = 'typing-' + Date.now();
+            const html = `
+                <div id="${id}" class="flex flex-col space-y-1">
+                    <span class="text-[0.65rem] text-slate-500 font-bold uppercase tracking-widest ml-1">Quant AI</span>
+                    <div class="ai-chat-bubble p-4 shadow-sm w-20 flex justify-center space-x-1">
+                        <div class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
+                        <div class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
+                        <div class="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            chatFeed.insertAdjacentHTML('beforeend', html);
+            return id;
+        }
+
+        function appendAIMessage(text) {
+            const html = `
+                <div class="flex flex-col space-y-1">
+                    <span class="text-[0.65rem] text-slate-500 font-bold uppercase tracking-widest ml-1">Quant AI <span class="text-emerald-500 normal-case tracking-normal ml-2">✓ Terverifikasi</span></span>
+                    <div class="ai-chat-bubble p-4 text-slate-300 shadow-sm text-sm leading-relaxed space-y-2 whitespace-pre-wrap">${text}</div>
+                </div>
+            `;
+            chatFeed.insertAdjacentHTML('beforeend', html);
+        }
+    </script>
 </body>
 </html>
