@@ -3,222 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal | TMD Intelligence Hub</title>
+    <title>TMD | Executive Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Nexora Premium Dark Theme */
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #0b0e14; /* Deep terminal background */
-            color: #8b949e; 
+            background-color: #080c16; /* Deep Midnight */
+            color: #94a3b8; 
             margin: 0;
             height: 100vh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            background-image: radial-gradient(circle at 50% 0%, #111a2e 0%, transparent 50%);
         }
+        .font-serif { font-family: 'Playfair Display', serif; }
         
-        /* Terminal UI Borders & Panels */
-        .terminal-panel { 
-            background-color: #11151d; 
-            border: 1px solid #1f2937; 
+        /* Premium Panels */
+        .glass-panel { 
+            background: rgba(15, 23, 42, 0.6); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.5); 
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
-        .panel-header {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid #1f2937;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-            color: #6b7280;
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: #f8fafc;
+            padding: 1.25rem 1.25rem 0.5rem;
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
         
-        /* Custom Scrollbar */
+        /* Scrollbar */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #0b0e14; }
-        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         
-        /* Top Nav Styling */
-        .top-nav { background-color: #0b0e14; border-bottom: 1px solid #1f2937; }
-        .nav-link { 
-            font-size: 0.65rem; 
-            text-transform: uppercase; 
-            font-weight: 600; 
-            padding: 1rem 0.75rem;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
+        /* Top Navigation */
+        .top-nav { 
+            background: rgba(8, 12, 22, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5); 
+            z-index: 50;
         }
-        .nav-link.active { border-bottom-color: #3b82f6; color: #e5e7eb; }
-        .nav-link:hover:not(.active) { color: #9ca3af; }
+        .nav-link { 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em;
+            font-weight: 500; 
+            padding: 1.25rem 1rem;
+            color: #64748b;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .nav-link.active { color: #f8fafc; }
+        .nav-link.active::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 2px; background: #eab308; /* Gold Accent */
+            border-radius: 2px 2px 0 0;
+        }
+        .nav-link:hover:not(.active) { color: #cbd5e1; }
 
-        /* Progress Bars */
-        .bar-bg { width: 100%; background-color: #1f2937; height: 4px; border-radius: 2px; overflow: hidden; }
-        .bar-fill { height: 100%; background-color: #3b82f6; }
+        /* Sleek Progress Bars */
+        .track-bg { width: 100%; background-color: rgba(30, 41, 59, 0.8); height: 6px; border-radius: 6px; overflow: hidden; }
+        .track-fill { height: 100%; border-radius: 6px; position: relative; }
+        .track-fill::after {
+            content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2));
+        }
+
+        /* Minimalist Tables */
+        th { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(51, 65, 85, 0.5); }
+        td { padding: 0.75rem 0; border-bottom: 1px solid rgba(51, 65, 85, 0.2); color: #cbd5e1; font-size: 0.8rem; }
+        tr:last-child td { border-bottom: none; }
         
-        /* Tables */
-        th { font-weight: 500; color: #4b5563; padding-bottom: 0.5rem; }
-        td { padding: 0.5rem 0; border-top: 1px solid #1f2937; color: #d1d5db; }
+        /* Status Tags */
+        .tag { padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+        .tag-amber { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-emerald { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-rose { background: rgba(244, 63, 94, 0.1); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.2); }
     </style>
 </head>
 <body>
 
-    <header class="top-nav flex justify-between items-center px-4">
-        <div class="flex items-center space-x-6">
-            <div class="flex items-center space-x-2">
-                <span class="text-blue-500 font-bold text-sm tracking-widest">TMD</span>
-                <span class="text-slate-300 font-bold text-sm tracking-widest">TERMINAL</span>
+    <header class="top-nav flex justify-between items-center px-8 flex-shrink-0">
+        <div class="flex items-center space-x-12">
+            <div class="flex items-baseline space-x-2">
+                <span class="font-serif text-2xl font-bold text-white tracking-tight">TMD</span>
+                <span class="text-[0.65rem] text-yellow-500 uppercase tracking-[0.2em] font-bold">Executive</span>
             </div>
-            <nav class="flex space-x-2 hidden md:flex">
-                <a href="#" class="nav-link active">Dashboard</a>
-                <a href="sentiment.html" class="nav-link">Sentiment Meter</a>
+            <nav class="flex space-x-4 hidden md:flex">
+                <a href="#" class="nav-link active">Intelligence Hub</a>
+                <a href="sentiment.html" class="nav-link">Sentiment Logic</a>
                 <a href="#" class="nav-link">Macro Regime</a>
-                <a href="#" class="nav-link">Monetary Policy</a>
-                <a href="#" class="nav-link">Fiscal Policy</a>
-                <a href="index.html" class="nav-link text-blue-500">← Back to Web</a>
+                <a href="index.html" class="nav-link !text-slate-500 hover:!text-white ml-8">Exit to Web</a>
             </nav>
         </div>
-        <div class="flex items-center space-x-6 text-[0.65rem] uppercase font-mono text-slate-400">
-            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></span> New York <span class="ml-1.5 text-slate-200">03:00</span></div>
-            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5"></span> London <span class="ml-1.5 text-slate-200">08:00</span></div>
-            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5"></span> Tokyo <span class="ml-1.5 text-slate-200">17:00</span></div>
-            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5"></span> Sydney <span class="ml-1.5 text-slate-200">19:00</span></div>
+        <div class="flex items-center space-x-6 text-xs text-slate-400 font-medium">
+            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-2 shadow-[0_0_8px_rgba(244,63,94,0.6)]"></span> NY <span class="ml-2 text-white">03:00</span></div>
+            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span> LDN <span class="ml-2 text-white">08:00</span></div>
+            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2"></span> TYO <span class="ml-2 text-white">17:00</span></div>
         </div>
     </header>
 
-    <main class="flex-grow p-3 overflow-hidden flex flex-col space-y-3">
+    <main class="flex-grow p-6 md:p-8 overflow-hidden flex flex-col space-y-6">
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 h-1/3 min-h-[200px]">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-1/3 min-h-[220px]">
             
-            <div class="terminal-panel">
-                <div class="panel-header">📈 GDP Growth</div>
-                <div class="p-4 flex flex-col justify-center space-y-5 flex-grow">
-                    <div class="flex items-center justify-between text-xs">
-                        <div class="flex items-center w-16"><span class="mr-2">🇺🇸</span> US</div>
-                        <div class="flex-grow mx-4"><div class="bar-bg"><div class="bar-fill" style="width: 65%;"></div></div></div>
-                        <div class="w-8 text-right text-slate-300">2.4%</div>
+            <div class="glass-panel">
+                <div class="panel-title">
+                    <span>Global Growth</span>
+                    <span class="text-[0.6rem] font-sans text-slate-500 uppercase tracking-widest">Q1 2026</span>
+                </div>
+                <div class="p-5 flex flex-col justify-center space-y-5 flex-grow">
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 text-sm text-slate-300">US</div>
+                        <div class="flex-grow mx-4"><div class="track-bg"><div class="track-fill bg-blue-500" style="width: 65%;"></div></div></div>
+                        <div class="w-12 text-right text-sm font-semibold text-white">2.4%</div>
                     </div>
-                    <div class="flex items-center justify-between text-xs">
-                        <div class="flex items-center w-16"><span class="mr-2">🇨🇳</span> CN</div>
-                        <div class="flex-grow mx-4"><div class="bar-bg"><div class="bar-fill bg-red-500" style="width: 80%;"></div></div></div>
-                        <div class="w-8 text-right text-slate-300">4.5%</div>
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 text-sm text-slate-300">CN</div>
+                        <div class="flex-grow mx-4"><div class="track-bg"><div class="track-fill bg-rose-500" style="width: 80%;"></div></div></div>
+                        <div class="w-12 text-right text-sm font-semibold text-white">4.5%</div>
                     </div>
-                    <div class="flex items-center justify-between text-xs">
-                        <div class="flex items-center w-16"><span class="mr-2">🇪🇺</span> EU</div>
-                        <div class="flex-grow mx-4"><div class="bar-bg"><div class="bar-fill bg-yellow-500" style="width: 30%;"></div></div></div>
-                        <div class="w-8 text-right text-slate-300">0.8%</div>
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 text-sm text-slate-300">EU</div>
+                        <div class="flex-grow mx-4"><div class="track-bg"><div class="track-fill bg-amber-500" style="width: 30%;"></div></div></div>
+                        <div class="w-12 text-right text-sm font-semibold text-white">0.8%</div>
                     </div>
                 </div>
             </div>
 
-            <div class="terminal-panel">
-                <div class="panel-header">🔥 Inflation (CPI)</div>
-                <div class="p-4 flex flex-col justify-center space-y-5 flex-grow">
-                    <div class="flex items-center justify-between text-xs">
-                        <div class="flex items-center w-16"><span class="mr-2">🇺🇸</span> US</div>
-                        <div class="flex-grow mx-4"><div class="bar-bg"><div class="bar-fill bg-orange-500" style="width: 55%;"></div></div></div>
-                        <div class="w-8 text-right text-slate-300">3.1%</div>
+            <div class="glass-panel">
+                <div class="panel-title">
+                    <span>Inflation Heatmap</span>
+                    <span class="text-[0.6rem] font-sans text-slate-500 uppercase tracking-widest">Core CPI</span>
+                </div>
+                <div class="p-5 flex flex-col justify-center space-y-5 flex-grow">
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 text-sm text-slate-300">US</div>
+                        <div class="flex-grow mx-4"><div class="track-bg"><div class="track-fill bg-amber-500" style="width: 55%;"></div></div></div>
+                        <div class="w-12 text-right text-sm font-semibold text-white">3.1%</div>
                     </div>
-                    <div class="flex items-center justify-between text-xs">
-                        <div class="flex items-center w-16"><span class="mr-2">🇬🇧</span> UK</div>
-                        <div class="flex-grow mx-4"><div class="bar-bg"><div class="bar-fill bg-orange-500" style="width: 70%;"></div></div></div>
-                        <div class="w-8 text-right text-slate-300">3.9%</div>
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 text-sm text-slate-300">UK</div>
+                        <div class="flex-grow mx-4"><div class="track-bg"><div class="track-fill bg-rose-500" style="width: 70%;"></div></div></div>
+                        <div class="w-12 text-right text-sm font-semibold text-white">3.9%</div>
                     </div>
-                    <div class="flex items-center justify-between text-xs">
-                        <div class="flex items-center w-16"><span class="mr-2">🇯🇵</span> JP</div>
-                        <div class="flex-grow mx-4"><div class="bar-bg"><div class="bar-fill bg-green-500" style="width: 40%;"></div></div></div>
-                        <div class="w-8 text-right text-slate-300">2.2%</div>
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 text-sm text-slate-300">JP</div>
+                        <div class="flex-grow mx-4"><div class="track-bg"><div class="track-fill bg-emerald-500" style="width: 40%;"></div></div></div>
+                        <div class="w-12 text-right text-sm font-semibold text-white">2.2%</div>
                     </div>
                 </div>
             </div>
 
-            <div class="terminal-panel">
-                <div class="panel-header">🏛 Central Bank Policy</div>
-                <div class="flex flex-grow items-center">
-                    <div class="flex-1 text-center border-r border-slate-800 px-2">
-                        <div class="text-[0.65rem] text-slate-500 mb-2 font-bold tracking-widest">FED</div>
-                        <div class="text-xl font-bold text-slate-200">5.50%</div>
-                        <div class="text-[0.65rem] text-yellow-500 mt-1">PAUSE</div>
+            <div class="glass-panel">
+                <div class="panel-title">
+                    <span>Monetary Policy</span>
+                    <span class="text-[0.6rem] font-sans text-slate-500 uppercase tracking-widest">Live Rates</span>
+                </div>
+                <div class="flex flex-grow items-center p-5">
+                    <div class="flex-1 text-center border-r border-slate-700/50 px-2">
+                        <div class="text-[0.65rem] text-slate-400 mb-2 font-bold tracking-widest">FED</div>
+                        <div class="text-3xl font-serif text-white mb-2">5.50<span class="text-lg text-slate-500">%</span></div>
+                        <span class="tag tag-amber">PAUSE</span>
                     </div>
-                    <div class="flex-1 text-center border-r border-slate-800 px-2">
-                        <div class="text-[0.65rem] text-slate-500 mb-2 font-bold tracking-widest">ECB</div>
-                        <div class="text-xl font-bold text-slate-200">4.00%</div>
-                        <div class="text-[0.65rem] text-yellow-500 mt-1">PAUSE</div>
+                    <div class="flex-1 text-center border-r border-slate-700/50 px-2">
+                        <div class="text-[0.65rem] text-slate-400 mb-2 font-bold tracking-widest">ECB</div>
+                        <div class="text-3xl font-serif text-white mb-2">4.00<span class="text-lg text-slate-500">%</span></div>
+                        <span class="tag tag-amber">PAUSE</span>
                     </div>
                     <div class="flex-1 text-center px-2">
-                        <div class="text-[0.65rem] text-slate-500 mb-2 font-bold tracking-widest">BOJ</div>
-                        <div class="text-xl font-bold text-slate-200">0.10%</div>
-                        <div class="text-[0.65rem] text-blue-400 mt-1">HIKING</div>
+                        <div class="text-[0.65rem] text-slate-400 mb-2 font-bold tracking-widest">BOJ</div>
+                        <div class="text-3xl font-serif text-white mb-2">0.10<span class="text-lg text-slate-500">%</span></div>
+                        <span class="tag tag-rose">HIKING</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 flex-grow overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 flex-grow overflow-hidden">
             
-            <div class="flex flex-col space-y-3 overflow-hidden">
+            <div class="flex flex-col space-y-6 overflow-hidden md:col-span-1">
                 
-                <div class="terminal-panel flex-grow overflow-hidden">
-                    <div class="panel-header">🛡 Geopolitical Radar</div>
-                    <div class="p-4 overflow-y-auto h-full">
-                        <table class="w-full text-left text-[0.7rem]">
+                <div class="glass-panel flex-grow overflow-hidden">
+                    <div class="panel-title">
+                        <span>Smart Money Flow</span>
+                        <span class="text-[0.6rem] font-sans text-slate-500 uppercase tracking-widest">COT Report</span>
+                    </div>
+                    <div class="p-5 overflow-y-auto h-full">
+                        <table class="w-full text-left">
                             <thead>
                                 <tr>
-                                    <th class="w-2/3">REGION & CONFLICT</th>
-                                    <th class="text-right">RISK LEVEL</th>
+                                    <th class="w-2/5">Asset</th>
+                                    <th class="w-2/5 text-right">Net Pos</th>
+                                    <th class="w-1/5 text-right">Chg</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="font-medium">Middle East (Red Sea Disruptions)</td>
-                                    <td class="text-right"><span class="bg-red-500/20 text-red-500 px-2 py-0.5 rounded text-[0.6rem] font-bold">HIGH</span></td>
+                                    <td class="font-medium text-amber-400">Gold (XAU)</td>
+                                    <td class="text-right text-white">185K Lng</td>
+                                    <td class="text-right text-emerald-400 text-xs">+12K</td>
                                 </tr>
                                 <tr>
-                                    <td class="font-medium">Eastern Europe (Ongoing Conflict)</td>
-                                    <td class="text-right"><span class="bg-red-500/20 text-red-500 px-2 py-0.5 rounded text-[0.6rem] font-bold">HIGH</span></td>
+                                    <td class="font-medium text-blue-400">S&P 500</td>
+                                    <td class="text-right text-white">-45K Sht</td>
+                                    <td class="text-right text-rose-400 text-xs">-5K</td>
                                 </tr>
                                 <tr>
-                                    <td class="font-medium">US-China (Trade Tech Tariffs)</td>
-                                    <td class="text-right"><span class="bg-yellow-500/20 text-yellow-500 px-2 py-0.5 rounded text-[0.6rem] font-bold">ELEVATED</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-medium">OPEC+ (Production Cuts)</td>
-                                    <td class="text-right"><span class="bg-yellow-500/20 text-yellow-500 px-2 py-0.5 rounded text-[0.6rem] font-bold">MODERATE</span></td>
+                                    <td class="font-medium text-emerald-400">US 10Y</td>
+                                    <td class="text-right text-white">-120K Sht</td>
+                                    <td class="text-right text-emerald-400 text-xs">+18K</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <div class="terminal-panel flex-grow overflow-hidden">
-                    <div class="panel-header">👥 Institutional Positioning (COT)</div>
-                    <div class="p-4 overflow-y-auto h-full">
-                        <table class="w-full text-left text-[0.7rem]">
+                <div class="glass-panel flex-grow overflow-hidden">
+                    <div class="panel-title">
+                        <span>Risk Radar</span>
+                        <span class="text-[0.6rem] font-sans text-slate-500 uppercase tracking-widest">AI Scored</span>
+                    </div>
+                    <div class="p-5 overflow-y-auto h-full">
+                        <table class="w-full text-left">
                             <thead>
                                 <tr>
-                                    <th class="w-1/3">ASSET</th>
-                                    <th class="w-1/3 text-right">NET POS</th>
-                                    <th class="text-right">CHANGE</th>
+                                    <th>Catalyst</th>
+                                    <th class="text-right">Impact</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="font-bold text-yellow-500">Gold (Comex)</td>
-                                    <td class="text-right font-mono text-slate-300">185K Long</td>
-                                    <td class="text-right text-green-400 font-mono">+12.5K</td>
+                                    <td class="font-medium text-slate-300">Middle East Supply</td>
+                                    <td class="text-right"><span class="tag tag-rose">HIGH</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="font-bold text-blue-500">S&P 500 E-mini</td>
-                                    <td class="text-right font-mono text-slate-300">-45K Short</td>
-                                    <td class="text-right text-red-400 font-mono">-5.2K</td>
+                                    <td class="font-medium text-slate-300">US-China Tariffs</td>
+                                    <td class="text-right"><span class="tag tag-amber">ELEVATED</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="font-bold text-green-500">US 10Y Note</td>
-                                    <td class="text-right font-mono text-slate-300">-120K Short</td>
-                                    <td class="text-right text-green-400 font-mono">+18K</td>
+                                    <td class="font-medium text-slate-300">OPEC+ Cuts</td>
+                                    <td class="text-right"><span class="tag tag-amber">MODERATE</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -226,85 +262,43 @@
                 </div>
             </div>
 
-            <div class="flex flex-col space-y-3 overflow-hidden">
-                
-                <div class="terminal-panel h-1/3 min-h-[150px]">
-                    <div class="panel-header">📊 Market Participant Summary</div>
-                    <div class="p-4 overflow-y-auto h-full">
-                        <table class="w-full text-left text-[0.7rem]">
-                            <thead>
-                                <tr>
-                                    <th class="w-1/3">CATEGORY</th>
-                                    <th class="w-1/3 text-center">ASSET</th>
-                                    <th class="text-right">POSITION TREND</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-slate-400">Asset Managers</td>
-                                    <td class="text-center font-bold">Equities</td>
-                                    <td class="text-right text-green-400">Overweight</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-slate-400">Hedge Funds</td>
-                                    <td class="text-center font-bold">Commodities</td>
-                                    <td class="text-right text-green-400">Strong Buy</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-slate-400">Retail</td>
-                                    <td class="text-center font-bold">USD</td>
-                                    <td class="text-right text-red-400">Liquidating</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="glass-panel md:col-span-2 flex flex-col">
+                <div class="panel-title border-b border-slate-700/50 pb-4">
+                    <span>Tactical Charting</span>
+                    <select class="bg-slate-900/50 border border-slate-700 text-xs text-white px-3 py-1.5 rounded-lg outline-none font-sans">
+                        <option>XAUUSD (GOLD)</option>
+                        <option>US10Y-US02Y (YIELD CURVE)</option>
+                        <option>DXY (DOLLAR INDEX)</option>
+                    </select>
+                </div>
+                <div class="flex-grow relative p-2 rounded-b-2xl overflow-hidden bg-[#080c16]/50">
+                    <div class="tradingview-widget-container h-full w-full">
+                        <div id="tradingview_premium" class="h-full"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                        new TradingView.widget({
+                          "autosize": true,
+                          "symbol": "OANDA:XAUUSD",
+                          "interval": "D",
+                          "timezone": "Asia/Jakarta",
+                          "theme": "dark",
+                          "style": "1",
+                          "locale": "id",
+                          "enable_publishing": false,
+                          "hide_top_toolbar": true,
+                          "hide_legend": false,
+                          "save_image": false,
+                          "container_id": "tradingview_premium",
+                          "backgroundColor": "transparent",
+                          "gridColor": "rgba(51, 65, 85, 0.2)"
+                        });
+                        </script>
                     </div>
                 </div>
-
-                <div class="terminal-panel flex-grow flex flex-col">
-                    <div class="panel-header justify-between">
-                        <div class="flex items-center">📈 Yield Curve & Macro Regime</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="bg-green-900/50 text-green-400 border border-green-700/50 px-2 py-0.5 rounded text-[0.55rem] tracking-widest">LATE CYCLE</span>
-                            <select class="bg-[#0b0e14] border border-slate-700 text-[0.6rem] text-slate-300 px-2 py-0.5 rounded outline-none">
-                                <option>US TREASURY</option>
-                                <option>GERMAN BUND</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="flex-grow relative p-2">
-                        <div class="tradingview-widget-container h-full w-full rounded overflow-hidden">
-                            <div id="tradingview_curve" class="h-full"></div>
-                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                            <script type="text/javascript">
-                            new TradingView.widget({
-                              "autosize": true,
-                              "symbol": "US10Y-US02Y",
-                              "interval": "D",
-                              "timezone": "Etc/UTC",
-                              "theme": "dark",
-                              "style": "3",
-                              "locale": "id",
-                              "enable_publishing": false,
-                              "hide_top_toolbar": true,
-                              "hide_legend": true,
-                              "save_image": false,
-                              "container_id": "tradingview_curve",
-                              "backgroundColor": "rgba(17, 21, 29, 1)",
-                              "gridColor": "rgba(31, 41, 55, 0.4)"
-                            });
-                            </script>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
         </div>
     </main>
-
-    <footer class="bg-[#0b0e14] border-t border-[#1f2937] px-4 py-1.5 flex justify-between items-center text-[0.6rem] text-slate-500 font-mono uppercase tracking-widest">
-        <div>TERMINAL PRO <span class="text-blue-500 font-bold ml-2">CONNECTED</span></div>
-        <div>TMD Data Center</div>
-    </footer>
 
 </body>
 </html>
