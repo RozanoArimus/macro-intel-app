@@ -3,32 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentiment Meter | TMD Intelligence Hub</title>
+    <title>Sentiment Logic | Executive Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        /* Nexora Premium Dark Theme */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #080c16; /* Deep Midnight */
+            color: #94a3b8; 
+            margin: 0;
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            background-image: radial-gradient(circle at 50% 0%, #111a2e 0%, transparent 50%);
+        }
         .font-serif { font-family: 'Playfair Display', serif; }
         
-        /* Sidebar & Layout */
-        .sidebar { width: 240px; border-right: 1px solid #1e293b; background: #0f172a; }
-        .main-content { flex: 1; overflow-y: auto; }
+        /* Premium Panels */
+        .glass-panel { 
+            background: rgba(15, 23, 42, 0.6); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.5); 
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: #f8fafc;
+            padding: 1.25rem 1.25rem 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
         
-        /* Glass Effect */
-        .panel { background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 16px; }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        
-        .active-link { background: #1e293b; color: #38bdf8; border-right: 3px solid #38bdf8; }
+        /* Top Navigation */
+        .top-nav { 
+            background: rgba(8, 12, 22, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5); 
+            z-index: 50;
+        }
+        .nav-link { 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em;
+            font-weight: 500; 
+            padding: 1.25rem 1rem;
+            color: #64748b;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .nav-link.active { color: #f8fafc; }
+        .nav-link.active::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 2px; background: #eab308; /* Gold Accent */
+            border-radius: 2px 2px 0 0;
+        }
+        .nav-link:hover:not(.active) { color: #cbd5e1; }
 
-        /* Large Gauge Styling */
+        /* Large Gauge Styling adapted for Midnight Theme */
         .big-gauge-wrapper { position: relative; width: 300px; height: 150px; margin: 0 auto; }
         .big-gauge {
             width: 100%; height: 100%;
-            background: conic-gradient(from 270deg at 50% 100%, #ef4444 0deg, #f97316 45deg, #eab308 90deg, #84cc16 135deg, #22c55e 180deg);
+            background: conic-gradient(from 270deg at 50% 100%, #f43f5e 0deg, #f59e0b 45deg, #eab308 90deg, #10b981 135deg, #059669 180deg);
             border-radius: 300px 300px 0 0;
             position: relative; overflow: hidden;
             box-shadow: inset 0 10px 20px rgba(0,0,0,0.5);
@@ -37,61 +84,81 @@
             content: ''; position: absolute;
             bottom: 0; left: 50%; transform: translateX(-50%);
             width: 200px; height: 100px;
-            background: #0f172a;
+            background: #0b1120; /* Matches the glass panel solid fallback */
             border-radius: 200px 200px 0 0;
             box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
         }
         .big-needle {
             position: absolute; bottom: -10px; left: 50%;
-            width: 6px; height: 140px; background: #ffffff;
+            width: 6px; height: 140px; background: #f8fafc;
             transform-origin: bottom center; transform: rotate(55deg); /* 78% position */
             border-radius: 10px; z-index: 10;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
         }
         .needle-base {
             position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
-            width: 30px; height: 30px; background: #ffffff;
+            width: 30px; height: 30px; background: #f8fafc;
             border-radius: 50%; z-index: 11;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
-        /* Progress Bars */
-        .progress-bg { background: #1e293b; border-radius: 10px; height: 8px; width: 100%; overflow: hidden; }
-        .progress-fill-green { background: #22c55e; height: 100%; border-radius: 10px; }
-        .progress-fill-red { background: #ef4444; height: 100%; border-radius: 10px; }
-        .progress-fill-yellow { background: #eab308; height: 100%; border-radius: 10px; }
+        /* Sleek Progress Bars */
+        .track-bg { width: 100%; background-color: rgba(30, 41, 59, 0.8); height: 6px; border-radius: 6px; overflow: hidden; }
+        .track-fill { height: 100%; border-radius: 6px; position: relative; }
+        .track-fill::after {
+            content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2));
+        }
+
+        /* Minimalist Tables */
+        th { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(51, 65, 85, 0.5); }
+        td { padding: 1rem 0; border-bottom: 1px solid rgba(51, 65, 85, 0.2); color: #cbd5e1; font-size: 0.8rem; }
+        tr:last-child td { border-bottom: none; }
+        
+        /* Status Tags */
+        .tag { padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; display: inline-block; }
+        .tag-amber { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-emerald { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-rose { background: rgba(244, 63, 94, 0.1); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.2); }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
+<body>
 
-    <aside class="sidebar hidden md:flex flex-col p-6">
-        <div class="font-serif text-2xl font-bold mb-10 tracking-tighter text-white">TMD</div>
-        <nav class="space-y-2 flex-grow">
-            <a href="dashboard.html" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 text-sm hover:bg-slate-800 transition">
-                <span>Intelligence Hub</span>
-            </a>
-            <a href="sentiment.html" class="flex items-center space-x-3 p-3 rounded-lg active-link text-sm font-medium transition">
-                <span>AI Sentiment Meter</span>
-            </a>
-            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg text-slate-400 text-sm hover:bg-slate-800 transition">
-                <span>Correlation Matrix</span>
-            </a>
-        </nav>
-        <div class="pt-6 border-t border-slate-800">
-            <a href="index.html" class="text-xs text-slate-500 hover:text-white transition">← Back to Website</a>
+    <header class="top-nav flex justify-between items-center px-8 flex-shrink-0 sticky top-0">
+        <div class="flex items-center space-x-12">
+            <div class="flex items-baseline space-x-2">
+                <span class="font-serif text-2xl font-bold text-white tracking-tight">TMD</span>
+                <span class="text-[0.65rem] text-yellow-500 uppercase tracking-[0.2em] font-bold">Executive</span>
+            </div>
+            <nav class="flex space-x-4 hidden md:flex">
+                <a href="dashboard.html" class="nav-link">Intelligence Hub</a>
+                <a href="#" class="nav-link active">Sentiment Logic</a>
+                <a href="#" class="nav-link">Macro Regime</a>
+                <a href="index.html" class="nav-link !text-slate-500 hover:!text-white ml-8">Exit to Web</a>
+            </nav>
         </div>
-    </aside>
+        <div class="flex items-center space-x-6 text-xs text-slate-400 font-medium">
+            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-2 shadow-[0_0_8px_rgba(244,63,94,0.6)]"></span> NY <span class="ml-2 text-white">03:00</span></div>
+            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span> LDN <span class="ml-2 text-white">08:00</span></div>
+            <div class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2"></span> TYO <span class="ml-2 text-white">17:00</span></div>
+        </div>
+    </header>
 
-    <main class="main-content flex flex-col p-4 md:p-8 space-y-8">
+    <main class="flex-grow p-6 md:p-8 space-y-8 max-w-7xl mx-auto w-full">
         
         <header>
-            <h1 class="text-3xl font-bold font-serif mb-2">Global Sentiment Radar</h1>
+            <h1 class="text-3xl font-bold font-serif mb-2 text-white">Global Sentiment Radar</h1>
             <p class="text-sm text-slate-400">Mensintesis 5.240 literatur finansial dan berita dalam 24 jam terakhir.</p>
         </header>
 
         <div class="grid lg:grid-cols-3 gap-6">
             
-            <div class="panel p-8 lg:col-span-2 flex flex-col items-center justify-center">
-                <div class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-8">Overall Market Sentiment</div>
+            <div class="glass-panel p-8 lg:col-span-2 flex flex-col items-center justify-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
+                    <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                
+                <div class="text-[0.65rem] uppercase tracking-[0.3em] text-slate-400 font-bold mb-8">Overall Market Sentiment</div>
                 
                 <div class="big-gauge-wrapper mb-6">
                     <div class="big-gauge"></div>
@@ -100,83 +167,87 @@
                 </div>
                 
                 <div class="text-center">
-                    <h2 class="text-5xl font-bold text-green-400 mb-2">78.4%</h2>
-                    <div class="text-xl font-bold text-white uppercase tracking-wider">Bullish / Greed</div>
-                    <p class="text-sm text-slate-400 mt-4 max-w-md">
-                        Pelemahan indeks Dolar (DXY) dan sentimen *dovish* dari The Fed mendorong aliran dana masif ke aset *safe-haven* dan ekuitas.
+                    <h2 class="text-5xl font-serif text-emerald-400 mb-2">78.4%</h2>
+                    <div class="text-lg font-bold text-white uppercase tracking-widest">Bullish / Greed</div>
+                    <p class="text-sm text-slate-400 mt-4 max-w-md leading-relaxed">
+                        Pelemahan indeks Dolar (DXY) dan sentimen <i class="text-slate-300">dovish</i> dari The Fed mendorong aliran dana masif ke aset <i class="text-slate-300">safe-haven</i> dan ekuitas.
                     </p>
                 </div>
             </div>
 
-            <div class="panel p-6 flex flex-col justify-center space-y-6">
-                <h3 class="text-xs uppercase tracking-widest text-slate-400 font-bold border-b border-slate-700 pb-3">Breakdown by Asset</h3>
-                
-                <div>
-                    <div class="flex justify-between text-sm mb-2">
-                        <span class="font-bold">Gold (XAU)</span>
-                        <span class="text-green-400 font-bold">85% Bullish</span>
-                    </div>
-                    <div class="progress-bg"><div class="progress-fill-green" style="width: 85%"></div></div>
+            <div class="glass-panel">
+                <div class="panel-title border-b border-slate-700/50 pb-4 mb-4">
+                    <span>Asset Breakdown</span>
+                    <span class="text-[0.6rem] font-sans text-slate-500 uppercase tracking-widest">Live</span>
                 </div>
-
-                <div>
-                    <div class="flex justify-between text-sm mb-2">
-                        <span class="font-bold">Indeks Lokal (IHSG)</span>
-                        <span class="text-yellow-400 font-bold">55% Neutral</span>
+                <div class="p-5 flex flex-col justify-center space-y-8">
+                    <div>
+                        <div class="flex justify-between text-sm mb-3">
+                            <span class="font-medium text-white">Gold (XAU)</span>
+                            <span class="text-emerald-400 font-bold text-xs tracking-wider">85% BULLISH</span>
+                        </div>
+                        <div class="track-bg"><div class="track-fill bg-emerald-500" style="width: 85%"></div></div>
                     </div>
-                    <div class="progress-bg"><div class="progress-fill-yellow" style="width: 55%"></div></div>
-                </div>
 
-                <div>
-                    <div class="flex justify-between text-sm mb-2">
-                        <span class="font-bold">US Dollar (DXY)</span>
-                        <span class="text-red-400 font-bold">20% Bearish</span>
+                    <div>
+                        <div class="flex justify-between text-sm mb-3">
+                            <span class="font-medium text-white">Indeks Lokal (IHSG)</span>
+                            <span class="text-amber-400 font-bold text-xs tracking-wider">55% NEUTRAL</span>
+                        </div>
+                        <div class="track-bg"><div class="track-fill bg-amber-500" style="width: 55%"></div></div>
                     </div>
-                    <div class="progress-bg"><div class="progress-fill-red" style="width: 20%"></div></div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-3">
+                            <span class="font-medium text-white">US Dollar (DXY)</span>
+                            <span class="text-rose-400 font-bold text-xs tracking-wider">20% BEARISH</span>
+                        </div>
+                        <div class="track-bg"><div class="track-fill bg-rose-500" style="width: 20%"></div></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="panel p-6">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-4 mb-6">
-                <h3 class="text-sm uppercase tracking-widest text-slate-300 font-bold">AI Extraction Log (Real-time)</h3>
-                <span class="text-[10px] bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-600">Showing Top 4 Drivers</span>
+        <div class="glass-panel">
+            <div class="panel-title border-b border-slate-700/50 pb-4">
+                <span>AI Extraction Log</span>
+                <span class="text-[0.6rem] font-sans text-slate-500 uppercase tracking-widest">Top 4 Drivers</span>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
+            <div class="p-5 overflow-x-auto">
+                <table class="w-full text-left">
                     <thead>
-                        <tr class="text-slate-500 border-b border-slate-800 text-xs uppercase tracking-wider">
-                            <th class="pb-3 font-medium">Waktu</th>
-                            <th class="pb-3 font-medium">Sumber Berita / Data</th>
-                            <th class="pb-3 font-medium">Ekstraksi NLP (Natural Language)</th>
-                            <th class="pb-3 font-medium text-right">Skor Sentimen</th>
+                        <tr>
+                            <th class="w-1/6">Time</th>
+                            <th class="w-1/6">Source</th>
+                            <th class="w-3/6">NLP Context Extraction</th>
+                            <th class="w-1/6 text-right">Sentiment Score</th>
                         </tr>
                     </thead>
-                    <tbody class="text-slate-300">
-                        <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition">
-                            <td class="py-4 text-xs text-slate-500 whitespace-nowrap">14:20 WIB</td>
-                            <td class="py-4 font-semibold text-white">Reuters (Global)</td>
-                            <td class="py-4 pr-4">"Inflasi AS melambat lebih cepat dari perkiraan, membuka ruang pemotongan suku bunga bulan depan."</td>
-                            <td class="py-4 text-right"><span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold border border-green-500/30">+8.5 Bullish</span></td>
+                    <tbody>
+                        <tr class="hover:bg-slate-800/20 transition-colors">
+                            <td class="font-mono text-xs text-slate-500">14:20 WIB</td>
+                            <td class="font-semibold text-slate-200 text-xs">Reuters (Global)</td>
+                            <td class="pr-6 leading-relaxed italic text-slate-400">"Inflasi AS melambat lebih cepat dari perkiraan, membuka ruang pemotongan suku bunga bulan depan."</td>
+                            <td class="text-right"><span class="tag tag-emerald">+8.5 Bullish</span></td>
                         </tr>
-                        <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition">
-                            <td class="py-4 text-xs text-slate-500 whitespace-nowrap">13:05 WIB</td>
-                            <td class="py-4 font-semibold text-white">Bloomberg Terminal</td>
-                            <td class="py-4 pr-4">"Lonjakan permintaan fisik emas dari Bank Sentral China berlanjut selama 18 bulan berturut-turut."</td>
-                            <td class="py-4 text-right"><span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold border border-green-500/30">+6.2 Bullish</span></td>
+                        <tr class="hover:bg-slate-800/20 transition-colors">
+                            <td class="font-mono text-xs text-slate-500">13:05 WIB</td>
+                            <td class="font-semibold text-slate-200 text-xs">Bloomberg Terminal</td>
+                            <td class="pr-6 leading-relaxed italic text-slate-400">"Lonjakan permintaan fisik emas dari Bank Sentral China berlanjut selama 18 bulan berturut-turut."</td>
+                            <td class="text-right"><span class="tag tag-emerald">+6.2 Bullish</span></td>
                         </tr>
-                        <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition">
-                            <td class="py-4 text-xs text-slate-500 whitespace-nowrap">11:30 WIB</td>
-                            <td class="py-4 font-semibold text-white">Laporan Kemenkeu RI</td>
-                            <td class="py-4 pr-4">"Penerimaan pajak melambat di kuartal pertama, mengindikasikan perlambatan konsumsi domestik."</td>
-                            <td class="py-4 text-right"><span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-xs font-bold border border-red-500/30">-4.1 Bearish</span></td>
+                        <tr class="hover:bg-slate-800/20 transition-colors">
+                            <td class="font-mono text-xs text-slate-500">11:30 WIB</td>
+                            <td class="font-semibold text-slate-200 text-xs">Laporan Kemenkeu RI</td>
+                            <td class="pr-6 leading-relaxed italic text-slate-400">"Penerimaan pajak melambat di kuartal pertama, mengindikasikan perlambatan konsumsi domestik."</td>
+                            <td class="text-right"><span class="tag tag-rose">-4.1 Bearish</span></td>
                         </tr>
-                        <tr class="hover:bg-slate-800/30 transition">
-                            <td class="py-4 text-xs text-slate-500 whitespace-nowrap">09:15 WIB</td>
-                            <td class="py-4 font-semibold text-white">CNBC Market</td>
-                            <td class="py-4 pr-4">"Harga minyak mentah stabil jelang pertemuan OPEC+, meredakan kekhawatiran inflasi energi."</td>
-                            <td class="py-4 text-right"><span class="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-xs font-bold border border-yellow-500/30">+1.0 Neutral</span></td>
+                        <tr class="hover:bg-slate-800/20 transition-colors">
+                            <td class="font-mono text-xs text-slate-500">09:15 WIB</td>
+                            <td class="font-semibold text-slate-200 text-xs">CNBC Market</td>
+                            <td class="pr-6 leading-relaxed italic text-slate-400">"Harga minyak mentah stabil jelang pertemuan OPEC+, meredakan kekhawatiran inflasi energi."</td>
+                            <td class="text-right"><span class="tag tag-amber">+1.0 Neutral</span></td>
                         </tr>
                     </tbody>
                 </table>
